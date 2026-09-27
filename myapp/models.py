@@ -2,14 +2,29 @@ from django.db import models
 
 # Create your models here.
 
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+
+class UserManager(BaseUserManager):
+    def create_user(self, phone_number, password=None, **extra_fields):
+        if not phone_number:
+            raise ValueError("Номер телефона обязателен")
+        user = self.model(phone_number=phone_number, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, phone_number, password=None, **extra_fields):
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        return self.create_user(phone_number, password, **extra_fields)
 
 class User(AbstractUser):
         username = None
         phone_number = models.CharField(max_length=20, unique=True)
         USERNAME_FIELD = "phone_number" #Указывает Django, какое именно поле модели будет использоваться в качестве уникального идентификатора (логина) при входе в систему
         REQUIRED_FIELDS = [] #Оставив REQUIRED_FIELDS = [] пустым, вы говорите Django: «При выполнении команды createsuperuser запрашивай только номер телефона и пароль
+        objects = UserManager()  # Подключаем кастомный менеджер
 
 class Account(models.Model):
         user = models.OneToOneField(User, on_delete = models.CASCADE, related_name="account") #Благодарю related_name="account", вы теперь можете от объекта пользователя (user) сразу обратиться к его счету через user.account
