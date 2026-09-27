@@ -4,10 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banking System</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <nav> <a href="/">Home</a> </nav>
+    <header>
+        <div class="logo"> My<span>Bank</span></div>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            {% if user.is_authenticated %}
+                        <a href="{% url 'account' %}">Account</a>
+                        <a href="{% url 'card_list' %}">Cards</a>
+                        <a href="{% url 'history' %}">History</a>
+                        <a href="{% url 'transfer' %}">Transfer</a>
+                        <form method="post">
+                            action = "{% url 'logout' %}"
+                            style = "display:inline;">
+                            {% csrf_token %}
+                            <button type="submit">Logout</button>
+                        </form>
+                        {% else %}
+                            <a href="{% url 'login' %}">Login</a>
+                            <a href="{% url 'register' %}">Register</a>
+                    {% endif %}
+        </nav>
+    </header>
+<main>
     {% block content %}
     {% endblock %}
+</main>
 </body>
 </html>

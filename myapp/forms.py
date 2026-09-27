@@ -17,12 +17,19 @@ class CardForm(forms.ModelForm):
         model = Card
         fields = ("card_number" , "cvv" , "date", "type" , "pin")
 
+
+
 class TransferForm(forms.Form):
-    receiver_phone = forms.CharField(max_length=20)
-    amount = forms.DecimalField(max_digits=12, decimal_places=2)
-    source_type = forms.ChoiceField(
-        choices = [ ("account" , "Account") , ("card" , "Card") ] )
-    card_number = forms.CharField(required = False)
+    source_type = forms.ChoiceField( choices=[  ("account", "Account"), ("card", "Card"), ])
+
+    destination_type = forms.ChoiceField(
+        choices=[ ("phone", "Phone number"),  ("card", "Card number"), ] )
+
+    receiver_phone = forms.CharField( max_length=20, required=False )
+
+    card_number = forms.CharField( max_length=16, required=False)
+
+    amount = forms.DecimalField( max_digits=12, decimal_places=2, min_value=0.01)
 
 class CheckPhoneForm(forms.Form):
     phone_number = forms.CharField(max_length=20)

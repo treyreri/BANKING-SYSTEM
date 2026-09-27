@@ -29,7 +29,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 class UserLoginView(LoginView): #Этот встроенный класс уже умеет принимать логин и пароль, проверять их через форму AuthenticationForm и аутентифицировать пользователя
     template_name = "login.html"
 
-class UserLogoutview(LogoutView):
+class UserLogoutView(LogoutView):
     next_page = "home"
 
 from django.contrib.auth.decorators import login_required #Импортируется декоратор для проверки авторизации
