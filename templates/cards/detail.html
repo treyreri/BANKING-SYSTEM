@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Card Details</h1>
+<p>
+    Card number :
+    {{ card.card_number }} </p>
+<p>
+    Type :
+    {{ card.type }} </p>
+<p>
+    Date :
+    {{ card.date }} </p>
+<p>
+    CVV :
+    {{ card.cvv }} </p>
+<p>
+    PIN :
+    {{ card.pin }} </p>
+<p>
+    Balance :
+    {{ card.balance }} </p>
+
+<a href="{% url 'card_update' card.pk %}"> Edit </a>
+<a href="{% url 'card_delete' card.pk %}"> Delete </a>
+<a href="{% url 'card_history' card.pk %}"> Transaction history </a>
+{% endblock %}

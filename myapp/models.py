@@ -39,11 +39,9 @@ class Account(models.Model):
 
 
 class Card(models.Model):
-
     CARD_TYPES = [ ("VISA", "Visa"), ("MASTERCARD", "Mastercard"), ]
     user = models.ForeignKey( User, on_delete=models.CASCADE, related_name="cards" )
     card_number = models.CharField(  max_length=16,  unique=True)
-
     cvv = models.CharField( max_length=3  )
 
     date = models.DateField()
@@ -58,17 +56,10 @@ class Card(models.Model):
 class Transaction(models.Model):
 
     sender = models.ForeignKey( User, on_delete=models.CASCADE, related_name="send_transactions")
-
     receiver = models.ForeignKey( User, on_delete=models.CASCADE, related_name="received_transactions")
-
     source_type = models.CharField( max_length=20 )
-
     destination_type = models.CharField( max_length=20 )
-
     source_card = models.ForeignKey( Card, on_delete=models.SET_NULL, null=True, blank=True, related_name="send_transactions" )
-
     destination_card = models.ForeignKey( Card, on_delete=models.SET_NULL, null=True, blank=True, related_name="received_transactions")
-
     amount = models.DecimalField( max_digits=12, decimal_places=2)
-
     created_at = models.DateTimeField( auto_now_add=True)

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Check card</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit"> Check </button>
+</form>
+
+{% if form.is_bound %}
+    {% if card %}
+        <h3>Card found</h3>
+        <p>
+            First name:
+            {{ card.user.account.first_name }} </p>
+
+        <p>
+            Last name:
+            {{ card.user.account.last_name }} </p>
+    {% else %}
+        <p>Card not found </p>
+
+    {% endif %}
+{% endif %}
+{% endblock %}

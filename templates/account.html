@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>My account</h1>
+
+<p> First name :
+    {{ account.first_name }} </p>
+
+<p>
+    Last name :
+    {{ account.last_name }}
+</p>
+
+<p>
+    Address :
+    {{ account.address }}
+</p>
+
+<p>
+    Passport ID :
+    {{ account.passport_id }} </p>
+
+<p>
+    Balance :
+    {{ account.balance }} </p>
+
+<a href="{% url 'account_update' %}">  Edit account </a>
+
+{% endblock %}

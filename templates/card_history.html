@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Transaction history</h1>
+<h1> Card Transaction History </h1>
+<p>
+    Card : {{ card.card_number }} </p>
 
-<div>
-    <a href="{% url 'history' %}?type=all"> All </a>
-    <a href="{% url 'history' %}?type=sent"> Sent</a>
-    <a href="{% url 'history' %}?type=received"> Received </a>
-</div>
+<a href="{% url 'card_history' card.pk %}?type=all"> All </a>
+
+<a href="{% url 'card_history' card.pk %}?type=sent">  Sent </a>
+
+<a href="{% url 'card_history' card.pk %}?type=received"> Received </a>
 
 <hr>
 {% for transaction in transactions %}
@@ -21,17 +23,12 @@
         To :
         {{ transaction.receiver.phone_number }} </p>
     <p>
-        Source:
-        {{ transaction.source_type }} </p>
-    <p>
-        Destination :
-        {{ transaction.destination_type }} </p>
-    <p>
         Date :
         {{ transaction.created_at }} </p>
 </div>
 <hr>
+
 {% empty %}
-<p>No transactions yet</p>
+<p> No transactions for this card </p>
 {% endfor %}
 {% endblock %}

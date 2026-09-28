@@ -13,4 +13,11 @@ urlpatterns = [
     path("cards/<int:pk>/delete/" , views.card_delete, name = "card_delete") ,
     path( "login/", views.UserLoginView.as_view(), name="login" ),
     path( "logout/", views.UserLogoutView.as_view(), name="logout" ), 
+    path("account/create/" , views.account_create, name = "account_create") ,
+    path("account/update/" , views.account_update, name = "account_update") ,
+    path("cards/<int:pk>/history/" , views.card_history, name = "card_history" ) ,
+    path ("check-phone/" , views.check_phone, name = "check_phone") ,
+    path("check-card/" , views.check_card, name = "check_card") ,
+    path("transfer" , views.transfer, name = "transfer") ,
+    path("history/" , views.history, name = "history") ,
 ]

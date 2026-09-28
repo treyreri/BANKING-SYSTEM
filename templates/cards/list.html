@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>My cards</h1>
+
+<a href="{% url 'card_create' %}"> Create Card </a>
+
+<hr>
+ {% for card in cards %}
+
+<div>
+    <h3>  {{ card.type }}</h3>
+    <p>
+        Card number:
+        {{ card.card_number }} </p>
+    <p>
+        Balance:
+        {{ card.balance }} </p>
+    <a href="{% url 'card_detail' card.pk %}"> details </a>
+</div>
+<hr>
+
+{% empty %} <p>you don't have any cards.</p>
+
+{% endfor %}
+{% endblock %}

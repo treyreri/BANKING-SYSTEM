@@ -26,9 +26,7 @@ class TransferForm(forms.Form):
         choices=[ ("phone", "Phone number"),  ("card", "Card number"), ] )
 
     receiver_phone = forms.CharField( max_length=20, required=False )
-
     card_number = forms.CharField( max_length=16, required=False)
-
     amount = forms.DecimalField( max_digits=12, decimal_places=2, min_value=0.01)
 
 class CheckPhoneForm(forms.Form):
