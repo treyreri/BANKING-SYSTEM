@@ -39,7 +39,6 @@ class UserLogoutView(LogoutView):
     next_page = "home"
 
 
-
 #account
 @login_required
 def account_create(request):

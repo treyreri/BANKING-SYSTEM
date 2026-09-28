@@ -1,39 +1,92 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Banking System</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
+
 <body>
-<nav>
-    <a href="{% url 'home' %}"> Home </a>
-    {% if user.is_authenticated %}
-        {% if user.account %}
 
-            <a href="{% url 'account' %}"> Account </a>
+<header class="header">
+    <div class="container nav-container">
 
-            <a href="{% url 'card_list' %}">Card </a>
+        <a href="{% url 'home' %}" class="logo">
+            Banking<span>System</span>
+        </a>
 
-            <a href="{% url 'transfer' %}"> Transfer </a>
+        <nav class="nav">
 
-            <a href="{% url 'history' %}"> History</a>
+            <a href="{% url 'home' %}">Home</a>
 
-            <a href="{% url 'check_phone' %}"> Check Phone </a>
+            {% if user.is_authenticated %}
 
-            <a href="{% url 'check_card' %}"> Check Card </a>
+                {% if user.account %}
 
-        {% endif %}
-        <form method="post" action="{% url 'logout' %}" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit"> Logout</button>
-        </form>
-    {% else %}
-        <a href="{% url 'login' %}"> Login </a>
-        <a href="{% url 'register' %}"> Register </a>
-    {% endif %}
-</nav>
-<hr>
-{% block content %}
-{% endblock %}
+                    <a href="{% url 'account' %}">Account</a>
+
+                    <a href="{% url 'card_list' %}">Cards</a>
+
+                    <a href="{% url 'transfer' %}">Transfer</a>
+
+                    <a href="{% url 'history' %}">History</a>
+
+                    <a href="{% url 'check_phone' %}">Check Phone</a>
+
+                    <a href="{% url 'check_card' %}">Check Card</a>
+
+                {% endif %}
+
+                <form method="post"
+                      action="{% url 'logout' %}"
+                      class="logout-form">
+
+                    {% csrf_token %}
+
+                    <button type="submit" class="logout-btn">
+                        Logout
+                    </button>
+
+                </form>
+
+            {% else %}
+
+                <a href="{% url 'login' %}">Login</a>
+
+                <a href="{% url 'register' %}" class="register-btn">
+                    Register
+                </a>
+
+            {% endif %}
+
+        </nav>
+
+    </div>
+</header>
+
+
+<main class="main">
+
+    <div class="container">
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</main>
+
+
+<footer class="footer">
+
+    <p>© 2026 Banking System</p>
+
+</footer>
+
 </body>
 </html>
